@@ -1,0 +1,9 @@
+wrd_cnt = load 'word_cnt.txt' using PigStorage as (string:chararray);
+
+Words = foreach wrd_cnt generate FLATTEN(TOKENIZE(string,' ')) as word;
+
+grp_Words = group Words by word;
+
+wordcount = foreach grp_Words generate group, COUNT(Words);
+
+
